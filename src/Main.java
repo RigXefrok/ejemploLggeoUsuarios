@@ -1,30 +1,18 @@
-import java.util.Scanner;
-
 public class Main {
-    static final String usuarioCorrecto = "sebadlf";
-    static final String contrasenaCorrrecta = "adminadmin";
-
     public static void main(String[] args) {
-        short cantidadDeIntentos = 3;
-        Scanner scanner = new Scanner(System.in);
+        Impresora impresoraHitachi = new Impresora(10, 10, 10, 10, 10);
 
-        while (cantidadDeIntentos > 0) {
-            System.out.print("Ingrese su usuario: ");
-            String usuario = scanner.nextLine();
-            System.out.print("Ingrese su contraseña: ");
-            String contrasena = scanner.nextLine();
+        Documento cvSeba = new Documento(2, 0, 2, 1, 2);
+        Documento pdf = new Documento(4, 3, 3, 1, 2);
+        Documento archivo = new Documento(1, 0, 0, 0, 3);
+        Documento legajo = new Documento(1, 1, 1, 1, 5);
 
-            if (usuario.equals(usuarioCorrecto) && contrasena.equals(contrasenaCorrrecta))  {
-                System.out.println("Bienvenido " + usuario);
-                cantidadDeIntentos = 0;
-            } else {
-                System.out.println("El usuario o la contraseña son incorrectos");
-                cantidadDeIntentos -= 1;
-                if (cantidadDeIntentos == 0) {
-                    System.out.println("Se agotaron la cantidad de intentos");
-                }
-            }
-        }
-        scanner.close();
+        System.out.println("Cv seba fue impreso: " + impresoraHitachi.imprimi(cvSeba).fueImpreso());
+        System.out.println("PDF fue impreso: " + impresoraHitachi.imprimi(pdf).fueImpreso());
+        System.out.println("archivo seba fue impreso: " + impresoraHitachi.imprimi(archivo).fueImpreso());
+        System.out.println("legajo seba fue impreso: " + impresoraHitachi.imprimi(legajo).fueImpreso());
+
+        System.out.println("\nSe imprimieron " + impresoraHitachi.getCantidadDeDocumentos() + " Documentos");
+        System.out.println("Se usaron " + impresoraHitachi.getCantidadDeHojasImpresas() + " Hojas");
     }
 }
