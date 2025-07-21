@@ -1,6 +1,6 @@
 public class Basura {
-    private int peso;
-    private String nombre;
+    private final int peso;
+    private final String nombre;
 
     Basura (int peso, String nombre) {
         this.peso = peso;
@@ -13,5 +13,10 @@ public class Basura {
 
     public String nombre() {
         return nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Basura/" + nombre;
     }
 }

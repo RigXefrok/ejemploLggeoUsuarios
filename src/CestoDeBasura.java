@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CestoDeBasura {
-    private int capacidad;
+    private final int capacidad;
     private int nivelDeBasura = 0;
     private boolean estaLimpio = true;
-    private Color color = Color.NEGRO;
-    private List<Basura> contenido = new ArrayList<>();
+    private final Color color;
+    private final List<Basura> contenido = new ArrayList<>();
 
     public CestoDeBasura(int capacidad, Color color) {
         this.capacidad = capacidad;
@@ -14,7 +14,7 @@ public class CestoDeBasura {
     }
 
     public boolean estaLleno() {
-        return capacidad == nivelDeBasura;
+        return capacidad <= nivelDeBasura;
     }
 
     public void ensuciar() {
@@ -44,5 +44,9 @@ public class CestoDeBasura {
 
     public Color color() {
         return color;
+    }
+
+    public List<Basura> getContenido() {
+        return contenido.stream().toList();
     }
 }

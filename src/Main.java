@@ -11,8 +11,10 @@ public class Main {
         basurin.tirarBasura(botellaDePlastico3);
         System.out.println("Esta limpio? " + basurin.estaLimpio());
         System.out.println("Esta lleno? " + basurin.estaLleno());
+        System.out.println(basurin.getContenido());
         basurin.vaciar();
         basurin.limpiar();
+
 
     }
 }
