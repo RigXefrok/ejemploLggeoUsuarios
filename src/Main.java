@@ -1,13 +1,18 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Auto miAuto = new Auto();
-        System.out.println(miAuto.estasEnMarcha());
-        miAuto.poneteEnMarcha();
-        System.out.println(miAuto.estasEnMarcha());
-        System.out.println(miAuto.cuantaNaftaTenes());
-        miAuto.cargarNafta(90);
-        System.out.println(miAuto.cuantaNaftaTenes());
+        CestoDeBasura basurin = new CestoDeBasura(5, Color.NEGRO);
+        Basura botellaDePlastico = new Basura(2, "cocacola");
+        Basura botellaDePlastico2 = new Basura(2, "fanta");
+        Basura botellaDePlastico3 = new Basura(2, "sprite");
+        basurin.tirarBasura(botellaDePlastico);
+        System.out.println("Esta limpio? " + basurin.estaLimpio());
+        System.out.println("Esta lleno? " + basurin.estaLleno());
+        basurin.tirarBasura(botellaDePlastico2);
+        basurin.tirarBasura(botellaDePlastico3);
+        System.out.println("Esta limpio? " + basurin.estaLimpio());
+        System.out.println("Esta lleno? " + basurin.estaLleno());
+        basurin.vaciar();
+        basurin.limpiar();
+
     }
 }
