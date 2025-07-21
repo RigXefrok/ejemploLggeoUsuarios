@@ -1,30 +1,32 @@
-import java.util.Scanner;
-
 public class Main {
-    static final String usuarioCorrecto = "sebadlf";
-    static final String contrasenaCorrrecta = "adminadmin";
-
     public static void main(String[] args) {
-        short cantidadDeIntentos = 3;
-        Scanner scanner = new Scanner(System.in);
+        Premio ninguno = new Premio("");
+        Premio voucher = new Premio("$50.000");
+        Premio cargaSube = new Premio("$80.000");
+        Premio kitSeguridad = new Premio("kit seguridad");
 
-        while (cantidadDeIntentos > 0) {
-            System.out.print("Ingrese su usuario: ");
-            String usuario = scanner.nextLine();
-            System.out.print("Ingrese su contraseña: ");
-            String contrasena = scanner.nextLine();
+        MedioDeMobilidad auto = new MedioDeMobilidad("auto", voucher);
+        MedioDeMobilidad moto = new MedioDeMobilidad("moto", voucher);
+        MedioDeMobilidad colectivo = new MedioDeMobilidad("colectivo", cargaSube);
+        MedioDeMobilidad tren = new MedioDeMobilidad("tren", cargaSube);
+        MedioDeMobilidad bicicleta = new MedioDeMobilidad("bicileta", kitSeguridad);
 
-            if (usuario.equals(usuarioCorrecto) && contrasena.equals(contrasenaCorrrecta))  {
-                System.out.println("Bienvenido " + usuario);
-                cantidadDeIntentos = 0;
-            } else {
-                System.out.println("El usuario o la contraseña son incorrectos");
-                cantidadDeIntentos -= 1;
-                if (cantidadDeIntentos == 0) {
-                    System.out.println("Se agotaron la cantidad de intentos");
-                }
-            }
-        }
-        scanner.close();
+        Empleado seba = new Empleado("seba", moto);
+        Empleado magy = new Empleado("magy", colectivo);
+        Empleado agus = new Empleado("agus", auto);
+        Empleado lucas = new Empleado("lucas", tren);
+        Empleado rosa = new Empleado("rosa", bicicleta);
+
+        System.out.println("Premio " + seba + seba.getPremio());
+        System.out.println("Premio " + magy + magy.getPremio());
+        System.out.println("Premio " + rosa + rosa.getPremio());
+        System.out.println("Premio " + agus + agus.getPremio());
+
+        auto.setPremio(ninguno);
+        Premio entradaEvento = new Premio("Entrada evento");
+        MedioDeMobilidad monopatin = new MedioDeMobilidad("monopatin", entradaEvento);
+        Empleado empleadoMonopatin = new Empleado("monopatinomano", monopatin);
+        System.out.println("Premio " + agus + agus.getPremio());
+        System.out.println("Premio " + empleadoMonopatin + empleadoMonopatin.getPremio());
     }
 }
