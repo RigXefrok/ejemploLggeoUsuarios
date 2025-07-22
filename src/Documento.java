@@ -43,6 +43,10 @@ public class Documento {
         return fueImpreso;
     }
 
+    public int cantidadTintaTotal() {
+        return cantidadDeAmarrilloRequerida + cantidadDeCianRequerida + cantidadDeMagentaRequerida + cantidadDeNegroRequerida;
+    }
+
     @Override
     public String toString() {
         return "Docuemento:" + fueImpreso;

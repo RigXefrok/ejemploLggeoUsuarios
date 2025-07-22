@@ -4,20 +4,19 @@ public class ImpresoraEco extends ImpresoraCuatroTintas {
         super(recipienteCian, recipienteMagenta, recipienteAmarrillo, recipienteNegro, bandejaDeHojas);
     }
 
-    private int calcularTintaTotal(Documento documento) {
-        return documento.getCantidadDeMagentaRequerida() + documento.getCantidadDeCianRequerida() + documento.getCantidadDeAmarrilloRequerida() + documento.getCantidadDeNegroRequerida();
+    private boolean esEco(Documento documento) {
+        return documento.cantidadTintaTotal() <= 10 && documento.getCantidadDeHojasRequeridas() <= 10;
     }
 
     @Override
     public boolean podesImprimir(Documento documento) {
-        return calcularTintaTotal(documento) <= 10 && documento.getCantidadDeHojasRequeridas() <= 10;
+        return esEco(documento) && super.podesImprimir(documento);
     }
 
     @Override
     public Documento imprimi(Documento documento) {
         if (podesImprimir(documento)) {
             super.imprimi(documento);
-
         }
         return documento;
     }

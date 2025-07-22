@@ -8,19 +8,22 @@ public class ImpresoraBlancoYNegro extends Impresora {
         this.bandejaDeHojas = bandejaDeHojas;
     }
 
-    private int cantidadDeTintaNegra(Documento documento) {
-        return documento.getCantidadDeCianRequerida() + documento.getCantidadDeNegroRequerida() + documento.getCantidadDeMagentaRequerida() + documento.getCantidadDeAmarrilloRequerida();
+    private boolean hayTinta(Documento documento) {
+        return recipienteNegro >= documento.cantidadTintaTotal();
+    }
+
+    private boolean hayHojas(Documento documento) {
+        return bandejaDeHojas >= documento.getCantidadDeHojasRequeridas();
     }
 
     public boolean podesImprimir(Documento documento) {
-        return recipienteNegro >= cantidadDeTintaNegra(documento) &&
-                bandejaDeHojas >= documento.getCantidadDeHojasRequeridas();
+        return  hayTinta(documento) && hayHojas(documento);
     }
 
     public Documento imprimi(Documento documento) {
         if (podesImprimir(documento)) {
             super.imprimi(documento);
-            recipienteNegro -= cantidadDeTintaNegra(documento);
+            recipienteNegro -= documento.cantidadTintaTotal();
             bandejaDeHojas -= documento.getCantidadDeHojasRequeridas();
         };
         return documento;
