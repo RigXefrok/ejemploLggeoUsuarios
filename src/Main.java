@@ -1,30 +1,63 @@
-import java.util.Scanner;
+import domicilios.Casa;
+import domicilios.Departamento;
+import habitantes.Habitante;
+import habitantes.Mascota;
 
 public class Main {
-    static final String usuarioCorrecto = "sebadlf";
-    static final String contrasenaCorrrecta = "adminadmin";
-
     public static void main(String[] args) {
-        short cantidadDeIntentos = 3;
-        Scanner scanner = new Scanner(System.in);
+        PapaNoel papaNoel = new PapaNoel();
 
-        while (cantidadDeIntentos > 0) {
-            System.out.print("Ingrese su usuario: ");
-            String usuario = scanner.nextLine();
-            System.out.print("Ingrese su contraseña: ");
-            String contrasena = scanner.nextLine();
+        Casa villaLaAgostura = new Casa("Villa La Angostura", "casaLaAngostura", true);
+        Habitante martin = new Habitante(13);
+        Habitante melina = new Habitante(13);
+        Mascota eva = new Mascota(15);
+        Mascota gollum = new Mascota(14);
+        Mascota olivia = new Mascota(11);
 
-            if (usuario.equals(usuarioCorrecto) && contrasena.equals(contrasenaCorrrecta))  {
-                System.out.println("Bienvenido " + usuario);
-                cantidadDeIntentos = 0;
-            } else {
-                System.out.println("El usuario o la contraseña son incorrectos");
-                cantidadDeIntentos -= 1;
-                if (cantidadDeIntentos == 0) {
-                    System.out.println("Se agotaron la cantidad de intentos");
-                }
-            }
+        System.out.println(olivia.mereceRegalo());
+
+        villaLaAgostura.agregar(martin);
+        villaLaAgostura.agregar(melina);
+        villaLaAgostura.agregar(eva);
+        villaLaAgostura.agregar(gollum);
+        villaLaAgostura.agregar(olivia);
+
+        try {
+            papaNoel.agendarVisita(villaLaAgostura);
+            papaNoel.agendarVisita(villaLaAgostura);
+        } catch (DomicilioException e) {
+            System.out.println("Se intento agendar una casa no valida");
         }
-        scanner.close();
+
+        Departamento deptoCaba = new Departamento("CABA", "departamento nicolas", false);
+        Habitante nicolas = new Habitante(38);
+        Habitante mariana = new Habitante(40);
+        Habitante hijo1 = new Habitante(3);
+        Habitante hijo2 = new Habitante(6);
+        deptoCaba.agregar(nicolas);
+        deptoCaba.agregar(mariana);
+        deptoCaba.agregar(hijo1);
+        deptoCaba.agregar(hijo2);
+
+        papaNoel.agendarVisita(deptoCaba);
+
+        Casa casaMiramar = new Casa("Mirama", "casaViejitos", true);
+        Habitante rogelio = new Habitante(70);
+        Habitante amanda = new Habitante(67);
+        casaMiramar.agregar(rogelio);
+        casaMiramar.agregar(amanda);
+
+        papaNoel.agendarVisita(casaMiramar);
+
+        papaNoel.visitarPrimerDomiclioPendiente();
+
+        papaNoel.visitarPrimerDomiclioBloqueado();
+
+        System.out.println(papaNoel.habitanteConRegaloMasviejo());
+
+        System.out.println(papaNoel.obtenerDomiciliosAburridosPendientes());
+        papaNoel.visitarDomicilio(casaMiramar);
+        System.out.println(papaNoel.obtenerDomiciliosAburridosVisitados());
+
     }
 }
