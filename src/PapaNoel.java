@@ -1,10 +1,8 @@
+import domicilios.Barrio;
 import domicilios.Domicilio;
 import habitantes.Habitante;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PapaNoel {
@@ -15,7 +13,7 @@ public class PapaNoel {
     private final List<Habitante> recibieronRegalo = new ArrayList<>();
 
     private boolean yaVisitoDomicilio(Domicilio domicilio) {
-        return domiciliosVisitados.contains(domicilio) || domiciliosPorVisitar.contains(domicilio);
+        return domiciliosVisitados.contains(domicilio) || domiciliosPorVisitar.contains(domicilio) || domiciliosBloquedaos.contains(domicilio);
     }
 
     private void marcarComoVisitado(Domicilio domicilio) {
@@ -44,16 +42,18 @@ public class PapaNoel {
         removerDePendiente(domicilio);
     }
 
-    public void visitarPrimerDomiclioPendiente() {
-        if (!domiciliosPorVisitar.isEmpty()) {
-            visitarDomicilio(domiciliosPorVisitar.getFirst());
+    private void visitarPrimerDomicilio(List<Domicilio> domicilios) {
+        if (!domicilios.isEmpty()) {
+            visitarDomicilio(domicilios.getFirst());
         }
     }
 
+    public void visitarPrimerDomiclioPendiente() {
+        visitarPrimerDomicilio(domiciliosPorVisitar);
+    }
+
     public void visitarPrimerDomiclioBloqueado() {
-        if (!domiciliosBloquedaos.isEmpty()) {
-            visitarDomicilio(domiciliosBloquedaos.getFirst());
-        }
+        visitarPrimerDomicilio(domiciliosBloquedaos);
     }
 
     public void visitarDomicilios() {
@@ -79,5 +79,16 @@ public class PapaNoel {
 
     public List<Domicilio> obtenerDomiciliosAburridosPendientes() {
         return obtenerDomiciliosAburridos(domiciliosPorVisitar);
+    }
+
+    public HashSet<String> nombresBarriosVisitadosMasDeUnaVez() {
+        List<Barrio> nombresBarrios = domiciliosVisitados.stream().map(Domicilio::barrio).toList();
+        List<Barrio> nombresFiltrados = nombresBarrios.stream().filter(nombre -> Collections.frequency(nombresBarrios, nombre) > 1).toList();
+        return new HashSet<>(nombresFiltrados.stream().map(Barrio::nombre).toList());
+    }
+
+    public int cantidadDeHabitantesDelUltimoBarrioQueTuvoUnBloqueo() {
+        Barrio barrioConUltimobloqueo = domiciliosBloquedaos.getLast().barrio();
+        return barrioConUltimobloqueo.cantidadDeHabitantes();
     }
 }

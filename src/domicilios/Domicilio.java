@@ -6,21 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Domicilio {
-    private final String barrio;
+    private final Barrio barrio;
     private final String nombre;
     private final List<Habitante> habitantes = new ArrayList<>();
 
-    public Domicilio(String barrio, String nombre) {
+    public Domicilio(Barrio barrio, String nombre) {
         this.barrio = barrio;
         this.nombre = nombre;
     }
 
     public void agregar(Habitante habitante) {
         habitantes.add(habitante);
+        barrio.agregarHabitante();
     }
 
     public void remover(Habitante habitante) {
         habitantes.remove(habitante);
+        barrio.removerHabitante();
     }
 
     public int cantidadDeHabitantes() {
@@ -35,6 +37,10 @@ public abstract class Domicilio {
 
     public List<Habitante> merecenRegalos() {
         return habitantes.stream().filter(Habitante::mereceRegalo).toList();
+    }
+
+    public Barrio barrio() {
+        return barrio;
     }
 
 }

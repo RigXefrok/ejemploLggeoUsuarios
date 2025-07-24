@@ -2,7 +2,7 @@ package domicilios;
 
 public class Departamento extends Domicilio {
     private boolean tieneVentanasAbiertas;
-    public Departamento(String barrio, String nombre, boolean tieneVentanasAbiertas) {
+    public Departamento(Barrio barrio, String nombre, boolean tieneVentanasAbiertas) {
         super(barrio, nombre);
         this.tieneVentanasAbiertas = tieneVentanasAbiertas;
     }
